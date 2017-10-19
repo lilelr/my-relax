@@ -170,7 +170,7 @@ int main(int argc, char **argv) {
 
         // load the network - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-        mcf->LoadDMX((istream &) stdin);
+        mcf->LoadDMX(cin);
 
         // set "reasonable" values for the epsilons, if any - - - - - - - - - - - -
 
@@ -240,7 +240,7 @@ int main(int argc, char **argv) {
 //                delete[] x;
 
                 for (MCFClass::Index i = 0; i < mcf->MCFm(); i++) {
-                    if ((!mcf->IsClosedArc(i)) && (!mcf->IsDeletedArc(i))) {
+                    if ((!mcf->IsClosedArc(i)) && (!mcf->IsDeletedArc(i)) && x[i]>0) {
 //                        cout << "a\t";
 //#if(USENAME0)
 //                        cout << MCFSNde( i ) + 1 << "\t" << MCFENde( i ) + 1 << "\t";
@@ -248,14 +248,14 @@ int main(int argc, char **argv) {
 //                        cout << mcf->MCFSNde(i) << "\t" << mcf->MCFENde(i) << "\t";
 //#endif
 //                        cout << "0\t" << "x[" << i << "] = " << x[i] << endl;
-                        printf("f %ju %ju %ju\n",mcf->MCFSNde(i),mcf->MCFENde(i),x[i]);
+                        printf("f %ju %ju %ju\n", mcf->MCFSNde(i), mcf->MCFENde(i), x[i]);
                     }
                 }
 
                 delete[] x;
 
-                printf("c ALGORITHM TIME %ld\n",(long int)(t * 1000 * 1000));
-                printf("s %ju\n",mcf->MCFGetFO());
+                printf("c ALGORITHM TIME %ld\n", (long int) (t * 1000 * 1000));
+                printf("s %ju\n", mcf->MCFGetFO());
                 printf("c EOI\n");
 
             }
@@ -284,10 +284,10 @@ int main(int argc, char **argv) {
 
         // output the problem in MPS format - - - - - - - - - - - - - - - - - - - -
 
-        if (argc > 2) {
-            ofstream oFile(argv[2]);
-            mcf->WriteMCF(oFile, MCFClass::kDimacs);
-        }
+//        if (argc > 2) {
+//            ofstream oFile(argv[2]);
+//            mcf->WriteMCF(oFile, MCFClass::kDimacs);
+//        }
 
         // destroy the object - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
